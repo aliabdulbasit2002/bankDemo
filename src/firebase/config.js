@@ -37,11 +37,7 @@ export const logIn = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-<<<<<<< HEAD
 // Logout user
-=======
-// create new user
->>>>>>> origin/main
 export const logout = () => {
   return signOut(auth);
 };

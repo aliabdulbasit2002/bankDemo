@@ -34,11 +34,7 @@ const Navbar = () => {
       <div className="col-span-2 flex items-center relative">
         <div className="flex gap-x-2 items-center">
           <FaBitcoin className="text-3xl" />
-<<<<<<< HEAD
           <h3>Gen 27 Fin-App</h3>
-=======
-          <h3>Bitbance</h3>
->>>>>>> origin/main
         </div>
         <div className="bg-slate-200 h-[40px] w-[2px] rounded-3xl absolute right-2"></div>
       </div>
@@ -48,15 +44,11 @@ const Navbar = () => {
       <div className="col-span-3 flex items-center pl-5">
         <User
           name={`${firstName} ${lastName}`}
-<<<<<<< HEAD
           description="Software Engineer"
-=======
-          description="Product Designer"
->>>>>>> origin/main
           avatarProps={{
-            src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+            src: "https://codetraingh.com/static/logo-d94ce7c1319195cf5c26fcf85e2fc4da.png",
           }}
-          className=""
+          className="object-cover"
         />
       </div>
     </nav>
