@@ -35,7 +35,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[url('https://images.pexels.com/photos/128878/the-last-shirt-dollar-bill-20-euro-folded-128878.jpeg?auto=compress&cs=tinysrgb&w=1200')] bg-no-repeat bg-cover">
+    <div className="min-h-screen flex justify-center items-center bg-[url('https://images.pexels.com/photos/7007174/pexels-photo-7007174.jpeg?auto=compress&cs=tinysrgb&w=1200')] bg-no-repeat bg-cover">
       <Card className="bg-transparent px-5 py-16" isBlurred>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h4 className="font-bold text-3xl text-white">Login</h4>
