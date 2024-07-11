@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 // Firebase
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "./firebase/config";
+import ErroPage from "./pages/ErroPage";
 
 const App = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -78,6 +79,7 @@ const App = () => {
         <Route index element={<Content />} />
         <Route path="transactions" element={<Transactions />} />
       </Route>
+      <Route path="*" element={<ErroPage />} />
     </Route>
   );
 
