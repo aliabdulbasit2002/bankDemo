@@ -2,7 +2,7 @@ import { Card, CardBody } from "@nextui-org/react";
 import LineChart from "./LineChart";
 import { auth, db } from "../firebase/config";
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
 const CardStats = ({ text }) => {
   return (
@@ -28,19 +28,22 @@ const Content = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setUserDetails(docSnap.data());
-        } else {
-          console.log("User data not found in Firestore");
-        }
+        const unsubscribeSnapshot = onSnapshot(docRef, (docSnap) => {
+          if (docSnap.exists()) {
+            setUserDetails(docSnap.data());
+          } else {
+            console.log("User data not found in Firestore");
+          }
+          setLoading(false);
+        });
+        return unsubscribeSnapshot; // Cleanup function to unsubscribe from onSnapshot
       } else {
         setUserDetails(null); // Clear userDetails if no user is authenticated
         console.log("User is not logged in");
+        setLoading(false);
       }
     });
 
-    setLoading(false);
     return () => unsubscribe(); // Cleanup function to unsubscribe from onAuthStateChanged
   }, []);
 
@@ -54,7 +57,9 @@ const Content = () => {
         {loading ? (
           <p>loading</p>
         ) : (
-          <CardStats text={userDetails && userDetails.amount} />
+          <CardStats
+            text={userDetails?.amount === 0 ? "0" : userDetails?.amount}
+          />
         )}
         <CardStats />
         <CardStats />

@@ -1,3 +1,4 @@
+import AddMoney from "./AddMoney";
 import SendMoney from "./SendMoney";
 
 const TransactionCard = ({ name, amount }) => {
@@ -12,7 +13,8 @@ const TransactionCard = ({ name, amount }) => {
 const TransAndWallet = () => {
   return (
     <div className="h-full px-5 py-8">
-      <div className="">
+      <div className="w-full grid grid-cols-2 gap-x-4">
+        <AddMoney />
         <SendMoney />
       </div>
       <h3 className="font-bold text-slate-600 text-2xl mt-5">
