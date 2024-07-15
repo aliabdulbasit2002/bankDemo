@@ -13,11 +13,13 @@ import { useForm } from "react-hook-form";
 import { IoIosSend } from "react-icons/io";
 import { auth, db } from "../firebase/config";
 import { useEffect, useState } from "react";
+import { PaystackButton } from 'react-paystack';
 
 export default function AddMoney() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [amount, setAmount] = useState(0);
 
   const {
     register,
@@ -37,30 +39,51 @@ export default function AddMoney() {
           console.log("User data not found in Firestore");
         }
       } else {
-        setUserDetails(null); // Clear userDetails if no user is authenticated
+        setUserDetails(null);
         console.log("User is not logged in");
       }
-      setLoading(!loading);
+      setLoading(false);
     });
 
-    return () => unsubscribe(); // Cleanup function to unsubscribe from onAuthStateChanged
-  });
+    return () => unsubscribe();
+  }, []);
 
-  const onSubmit = async (data) => {
-    console.log(data);
-    if (userDetails) {
-      try {
-        const userDocRef = doc(db, "users", auth.currentUser.uid);
-        await updateDoc(userDocRef, {
-          balance: increment(data.balance),
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      console.log("User details not found");
+  const onSubmit = (data) => {
+    console.log("Form data:", data);
+  };
+
+  const handlePaystackSuccessAction = async (response) => {
+    console.log("Payment successful:", response);
+    try {
+      const userDocRef = doc(db, "users", auth.currentUser.uid);
+      await updateDoc(userDocRef, {
+        balance: increment(amount / 100),
+      });
+      alert('Payment successful');
+      reset();
+    } catch (error) {
+      console.log("Error updating balance:", error);
     }
-    reset();
+  };
+
+  const handlePaystackCloseAction = () => {
+    console.log('Payment closed');
+    alert('Payment closed');
+  };
+
+  const paystackConfig = {
+    email: userDetails?.email || '',
+    amount: amount * 100,
+    currency: 'GHS',
+    publicKey: "pk_test_11e583162b57b8ab391d08520fb58c839d93b86c",
+    text: "Pay Now",
+    onSuccess: (reference)=>handlePaystackSuccessAction(reference),
+    onClose: handlePaystackCloseAction,
+  };
+
+  const handleFormSubmit = (data) => {
+    console.log("Form submitted with data:", data);
+    onSubmit(data);
   };
 
   return (
@@ -76,41 +99,21 @@ export default function AddMoney() {
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
         <ModalContent>
           {(onClose) => (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
               <ModalHeader className="flex flex-col gap-1">
-                Send Money
+                Add Money
               </ModalHeader>
               <ModalBody>
                 <Input
-                  autoFocus
-                  label="Email"
-                  type="email"
-                  placeholder="Enter your email"
-                  variant="bordered"
-                  {...register("email", { required: true })}
-                  isInvalid={errors.email ? true : false}
-                  errorMessage="Please enter a valid email"
-                />
-                <Input
                   label="Amount"
                   placeholder="Enter amount"
+                  onChange={(e) => setAmount(Number(e.target.value))}
                   type="number"
                   variant="bordered"
-                  {...register("balance", { required: true, min: 10 })}
-                  isInvalid={errors.balance ? true : false}
-                  errorMessage="Please enter an amount above $10"
                 />
               </ModalBody>
               <ModalFooter>
-                <Button
-                  color="primary"
-                  onPress={errors ? null : onClose}
-                  type="submit"
-                  className="rounded-sm"
-                  onClick={onClose}
-                >
-                  Send
-                </Button>
+                <PaystackButton {...paystackConfig} />
               </ModalFooter>
             </form>
           )}
