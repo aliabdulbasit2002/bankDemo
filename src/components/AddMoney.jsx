@@ -75,7 +75,7 @@ export default function AddMoney() {
     email: userDetails?.email || '',
     amount: amount * 100,
     currency: 'GHS',
-    publicKey: "pk_test_11e583162b57b8ab391d08520fb58c839d93b86c",
+    publicKey: import.meta.env.PAYSTACK_PUBLIC_KEY,
     text: "Pay Now",
     onSuccess: (reference)=>handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
