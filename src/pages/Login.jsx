@@ -21,17 +21,19 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log("Form Submitted: ", data); // Debug log
     const { email, password } = data;
 
     setLoading(true);
     try {
       await logIn(email, password);
+      navigate({ pathname: "/dashboard" });
+      reset();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-    navigate({ pathname: "/dashboard" });
-    reset();
   };
 
   return (

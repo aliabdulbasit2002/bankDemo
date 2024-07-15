@@ -35,7 +35,7 @@ export default function SendMoney() {
         endContent={<IoIosSend />}
         className="rounded-sm col-span-1 "
       >
-        Send
+        Send Money
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
         <ModalContent>
