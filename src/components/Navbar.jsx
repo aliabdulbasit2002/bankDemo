@@ -34,10 +34,6 @@ const Navbar = () => {
       <div className="col-span-2 flex items-center relative">
         <div className="flex gap-x-2 items-center">
           <FaBitcoin className="text-3xl" />
-<<<<<<< HEAD
-
-=======
->>>>>>> a0db098bb3e9e4701509cc0a95008848efcd15a2
           <h3>Gen 27 Fin-App</h3>
         </div>
         <div className="bg-slate-200 h-[40px] w-[2px] rounded-3xl absolute right-2"></div>

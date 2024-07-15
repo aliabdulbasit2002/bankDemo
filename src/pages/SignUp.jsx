@@ -28,7 +28,7 @@ const SignUp = () => {
 
       setDoc(doc(db, "users", res.user.uid), {
         ...data,
-        amount: 0,
+        balance: 0,
         timestamp: serverTimestamp(),
       });
     } catch (error) {
@@ -100,7 +100,7 @@ const SignUp = () => {
             color="primary"
             isLoading={loading}
           >
-            Sign In
+            Sign Up
           </Button>
         </form>
         <div className="mt-10">

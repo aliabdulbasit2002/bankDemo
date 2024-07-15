@@ -52,7 +52,7 @@ export default function AddMoney() {
       try {
         const userDocRef = doc(db, "users", auth.currentUser.uid);
         await updateDoc(userDocRef, {
-          amount: increment(data.amount),
+          balance: increment(data.balance),
         });
       } catch (error) {
         console.log(error);
@@ -96,8 +96,8 @@ export default function AddMoney() {
                   placeholder="Enter amount"
                   type="number"
                   variant="bordered"
-                  {...register("amount", { required: true, min: 10 })}
-                  isInvalid={errors.amount ? true : false}
+                  {...register("balance", { required: true, min: 10 })}
+                  isInvalid={errors.balance ? true : false}
                   errorMessage="Please enter an amount above $10"
                 />
               </ModalBody>
