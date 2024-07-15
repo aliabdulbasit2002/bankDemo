@@ -21,11 +21,15 @@ import { useEffect, useState } from "react";
 // Firebase
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "./firebase/config";
+import ErroPage from "./pages/ErroPage";
 
 const App = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true); // I can handle the state of the app using the loading screen to know if a user is authenticated
+<<<<<<< HEAD
 
+=======
+>>>>>>> a0db098bb3e9e4701509cc0a95008848efcd15a2
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -33,11 +37,18 @@ const App = () => {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
+<<<<<<< HEAD
           setUserDetails(docSnap.data()); 
         } else {
           setUserDetails(null);
           console.log("User data Not Found, Please sign-up");
 
+=======
+          setUserDetails(docSnap.data());
+        } else {
+          setUserDetails(null);
+          console.log("User data Not Found, Please sign-up");
+>>>>>>> a0db098bb3e9e4701509cc0a95008848efcd15a2
         }
       } else {
         setUserDetails(null);
@@ -80,6 +91,7 @@ const App = () => {
         <Route index element={<Content />} />
         <Route path="transactions" element={<Transactions />} />
       </Route>
+      <Route path="*" element={<ErroPage />} />
     </Route>
   );
 
@@ -88,8 +100,11 @@ const App = () => {
   return <RouterProvider router={router} />;
 };
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> a0db098bb3e9e4701509cc0a95008848efcd15a2
 const styles = {
   loadingContainer: {
     display: "flex",
@@ -98,5 +113,8 @@ const styles = {
     height: "100vh", // Here we set the height of the loading container to the entire screen
   },
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> a0db098bb3e9e4701509cc0a95008848efcd15a2
 export default App;
