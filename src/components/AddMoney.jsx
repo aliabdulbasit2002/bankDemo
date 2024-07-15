@@ -75,8 +75,8 @@ export default function AddMoney() {
     email: userDetails?.email || '',
     amount: amount * 100,
     currency: 'GHS',
-    publicKey: import.meta.env.PAYSTACK_PUBLIC_KEY,
-    text: "Pay Now",
+    publicKey: "pk_test_11e583162b57b8ab391d08520fb58c839d93b86c",
+    text: "Top Up",
     onSuccess: (reference)=>handlePaystackSuccessAction(reference),
     onClose: handlePaystackCloseAction,
   };
@@ -94,7 +94,7 @@ export default function AddMoney() {
         endContent={<IoIosSend />}
         className="rounded-sm col-span-1"
       >
-        Add
+        Add Money
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
         <ModalContent>
