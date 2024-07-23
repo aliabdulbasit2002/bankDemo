@@ -13,7 +13,7 @@ const CardStats = ({ text }) => {
             text ? "font-bold text-4xl" : "font-bold text-4xl text-slate-300"
           }`}
         >
-          {text ? `$${text}` : "No data"}
+          {text ? `GH₵${text}` : "No data"}
         </h3>
       </CardBody>
     </Card>
@@ -58,7 +58,7 @@ const Content = () => {
           <p>loading</p>
         ) : (
           <CardStats
-            text={userDetails?.amount === 0 ? "0" : userDetails?.amount}
+            text={userDetails?.balance === 0 ? "0" : userDetails?.balance}
           />
         )}
         <CardStats />

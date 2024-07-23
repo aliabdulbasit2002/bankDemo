@@ -57,9 +57,10 @@ export default function AddMoney() {
     try {
       const userDocRef = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userDocRef, {
-        balance: increment(amount / 100),
+        balance: increment(amount),
       });
       alert('Payment successful');
+      onOpenChange(false); 
       reset();
     } catch (error) {
       console.log("Error updating balance:", error);
