@@ -60,6 +60,7 @@ export default function AddMoney() {
         balance: increment(amount),
       });
       alert('Payment successful');
+      onOpenChange(false); 
       reset();
     } catch (error) {
       console.log("Error updating balance:", error);

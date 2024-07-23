@@ -85,6 +85,7 @@ export default function SendMoney() {
       });
 
       alert("Money sent successfully");
+      onOpenChange(false); 
       reset();
     } catch (error) {
       console.error("Error sending money:", error);
